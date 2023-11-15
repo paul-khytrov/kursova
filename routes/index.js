@@ -1,9 +1,13 @@
 var express = require('express');
+var cors = require('cors');
 var router = express.Router();
+var test = '10'
 
-/* GET home page. */
+router.use(cors());
+
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+
+  res.json({msg: 'This is CORS-enabled for all origins!'})
 });
 
 module.exports = router;

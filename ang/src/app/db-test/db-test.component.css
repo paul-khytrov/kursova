@@ -1,0 +1,99 @@
+.username-text
+{
+    color: black; font-size: 24px; font-family: Roboto; font-weight: 300; word-wrap: break-word
+}
+
+.user-wrapper
+{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+    display: flex
+}
+
+
+.header-wrapper
+{
+    width: 100%; 
+    height: 100%; 
+    padding-left: 32px; 
+    padding-right: 32px; 
+    border-bottom: 1px black solid; 
+    justify-content: space-between; 
+    align-items: center; 
+    display: inline-flex
+}
+
+.title-text
+{
+    color: black; font-size: 30px; font-family: Roboto; font-weight: 400; word-wrap: break-word
+}
+.title-wrapper
+{
+    justify-content: flex-start; align-items: center; gap: 30px; display: flex
+}
+.body
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    background: #FFF;
+}
+
+.course-block
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border-radius: 60px;
+    
+}
+.course-block:hover
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    border-radius: 60px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25); 
+    
+}
+.rect-placeholder
+{
+    width: 285px;
+    height: 285px;
+    border-radius: 64px;
+    background: #A9F3C2;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);  
+
+}
+.course-wrapper
+{
+    width:1440px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    height: 834px;
+    padding: 0px 32px;
+    justify-content: center;
+    align-items: baseline;
+    gap: 48px;
+    align-self: stretch;
+    flex-wrap: wrap;
+}
+.course-name
+{
+    max-width: 300px;
+    color: #000;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal; 
+    
+}
