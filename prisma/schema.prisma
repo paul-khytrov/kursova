@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model courses {
+  ID                    Int                     @id @unique(map: "ID_UNIQUE") @default(autoincrement())
+  Name                  String                  @unique(map: "Name_UNIQUE") @db.VarChar(45)
+  assignments           assignments[]
+  groups_has_courses    groups_has_courses[]
+  lecturers_has_courses lecturers_has_courses[]
+}
+
+model groups {
+  ID                 Int                  @id @unique(map: "ID_UNIQUE") @default(autoincrement())
+  Name               String               @db.VarChar(45)
+  groups_has_courses groups_has_courses[]
+  students           students[]
+}
+
+model groups_has_courses {
+  Groups_ID  Int
+  Courses_ID Int
+  courses    courses @relation(fields: [Courses_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Groups_has_Courses_Courses1")
+  groups     groups  @relation(fields: [Groups_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Groups_has_Courses_Groups")
+
+  @@id([Groups_ID, Courses_ID])
+  @@index([Courses_ID], map: "fk_Groups_has_Courses_Courses1_idx")
+  @@index([Groups_ID], map: "fk_Groups_has_Courses_Groups_idx")
+}
+
+model lecturers {
+  ID                    Int                     @id @unique(map: "ID_UNIQUE") @default(autoincrement())
+  Name                  String                  @db.VarChar(45)
+  Surname               String                  @db.VarChar(45)
+  lecturers_has_courses lecturers_has_courses[]
+  marks                 marks[]
+}
+
+model lecturers_has_courses {
+  Lecturers_ID Int
+  Courses_ID   Int
+  courses      courses   @relation(fields: [Courses_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Lecturers_has_Courses_Courses1")
+  lecturers    lecturers @relation(fields: [Lecturers_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Lecturers_has_Courses_Lecturers1")
+
+  @@id([Lecturers_ID, Courses_ID])
+  @@index([Courses_ID], map: "fk_Lecturers_has_Courses_Courses1_idx")
+  @@index([Lecturers_ID], map: "fk_Lecturers_has_Courses_Lecturers1_idx")
+}
+
+model marks {
+  ID            Int         @unique(map: "ID_UNIQUE") @default(autoincrement())
+  Mark          Float?      @db.Float
+  FileURL       String?     @db.VarChar(45)
+  Date          DateTime?   @db.Date
+  Lecturers_ID  Int
+  Assigments_ID Int
+  Students_ID   Int
+  assignments   assignments @relation(fields: [Assigments_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Marks_Assigments1")
+  lecturers     lecturers   @relation(fields: [Lecturers_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Marks_Lecturers1")
+  students      students    @relation(fields: [Students_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Marks_Students1")
+
+  @@id([ID, Assigments_ID, Students_ID])
+  @@index([Assigments_ID], map: "fk_Marks_Assigments1_idx")
+  @@index([Lecturers_ID], map: "fk_Marks_Lecturers1_idx")
+  @@index([Students_ID], map: "fk_Marks_Students1_idx")
+}
+
+model students {
+  ID        Int     @unique(map: "ID_UNIQUE") @default(autoincrement())
+  Name      String  @db.VarChar(45)
+  Surname   String  @db.VarChar(45)
+  Groups_ID Int
+  marks     marks[]
+  groups    groups  @relation(fields: [Groups_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Students_Groups1")
+
+  @@id([ID, Groups_ID])
+  @@index([Groups_ID], map: "fk_Students_Groups1_idx")
+}
+
+model assignments {
+  ID         Int     @unique(map: "ID_UNIQUE") @default(autoincrement())
+  Title      String  @db.VarChar(45)
+  Courses_ID Int
+  courses    courses @relation(fields: [Courses_ID], references: [ID], onDelete: NoAction, onUpdate: NoAction, map: "fk_Assigments_Courses1")
+  marks      marks[]
+
+  @@id([ID, Courses_ID])
+  @@index([Courses_ID], map: "fk_Assigments_Courses1_idx")
+}

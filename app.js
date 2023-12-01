@@ -5,17 +5,40 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 var mysql = require('mysql')
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
+
+const { PrismaClient } = require('@prisma/client')
 
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'root',
-  database: 'kursova'
-})
+const prisma = new PrismaClient()
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// const connection = mysql.createConnection({
+//   host: 'localhost',
+//   user: 'root',
+//   password: 'root',
+//   database: 'kursova'
+// })
+
+  // [
+        //   {
+        //     "in": "body",
+        //     "name": "body",
+        //     "description": "---",
+        //     "required": true,
+        //     "schema": 
+        //     {
+        //       
+        //     }
+        //   }
+        //   ],
+
+var studentsRouter = require('./routes/students');
+var lecturersRouter = require('./routes/lecturers');
+var groupsRouter = require('./routes/groups');
+var marksRouter = require('./routes/marks');
+var coursesRouter = require('./routes/courses');
+var assignmentsRouter = require('./routes/assignments');
 
 var app = express();
 
@@ -25,45 +48,54 @@ app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
+app.use(express.urlencoded());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
 
-connection.connect()
-  connection.query('SELECT * FROM courses', (err, rows, fields) => {
-    console.log('courses: ', rows)
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-  })
+// connection.connect()
+//   connection.query('SELECT * FROM courses', (err, rows, fields) => {
+//     console.log('courses: ', rows)
 
+//   })
+async function main() {
+
+  const allUsers = await prisma.students.findMany()
+  console.log("here ->" + allUsers)
+  const res_json = JSON.stringify(allUsers)
+  console.log("here -->" + res_json)
+  return res_json
+}
+
+app.use('/students', studentsRouter);
+app.use('/lecturers', lecturersRouter);
+app.use('/groups', groupsRouter);
+app.use('/marks', marksRouter);
+app.use('/assignments', assignmentsRouter);
+app.use('/courses', coursesRouter)
 
 app.options('/', cors())
-app.get('/', function(req, res, next) {
- // res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
- // res.json({msg: 'This is CORS-enabled for all origins!'})
+app.get('/', async function(req, res, next) {
+  // try {
+  //   const result = await main();
+  //   console.log("here --->", result);
+  //   res.json({ result });
+  // } catch (error) {
+  //   console.error(error);
+  //   res.status(500).json({ error: 'Internal Server Error' });
+  // } finally {
+  //   await prisma.$disconnect();
+  // }
+  res.send("It works!")
 
-
-  connection.query('SELECT * FROM courses', function(err, rows, fields) {
-    if (err) {
-      console.log('Encountered an error:', err.message);
-      return res.send(500, err.message);
-    }
-    thedata = ({'courses' : rows});
-    console.log(thedata);
-
-    res.json({ 
- 
-    thedata, 
-  
-  });
-  });
 });
 
 
 
 
-//app.use('/', indexRouter);
-//app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

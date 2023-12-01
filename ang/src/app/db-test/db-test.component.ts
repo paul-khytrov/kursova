@@ -13,46 +13,48 @@ import { CommonModule } from '@angular/common';
 })
 export class DbTestComponent {
   courses : any;
-  constructor(private http: HttpClient) { }
+  student: any;
+
+  data:string= '';
+
+  constructor(private http: HttpClient) {
 
 
-  letters = '0123456789ABCDEF';
-  color = '#';
+  }
 
-  ngOnInit() 
-  {      
+
+
+
+
+  ngOnInit()
+  {
+    const s = history.state;
+    const id = Number(s.id);
+    console.log(s);
+
     // Simple GET request with response type <any>
-    this.http.get<any>('http://localhost:3000/').subscribe(data => {
-        console.log(data)
-        this.courses = data.thedata.courses
+    this.http.get<any>('http://localhost:3000/students/' + id).subscribe(data => {
+          //console.log(data);
+          const Name = data.result.Name + ' ' + data.result.Surname;
+          this.student = Name;
+      },
+      err => {
+        console.log(err.message);
+      })
+      this.http.get<any>('http://localhost:3000/courses/' + id).subscribe(data => {
+        //console.log(data);
+        this.courses = data.result;
+
     },
     err => {
       console.log(err.message);
     })
-    this.color = '#'; // <-----------
-    for (var i = 0; i < 6; i++) {
-        this.color += this.letters[Math.floor(Math.random() * 16)];
     }
 
   }
-  getRandomColor() {
-    
-}
-
-  coverExist()
-  {
-      this.http.get<any>('http://localhost:3000/').subscribe(data => {
-      console.log(data)
-      this.courses = data.thedata.courses
-      if(typeof data.thedata.courses.cover == "undefined"){return false;}
-      else return true;
-
-    },
-    err => {
-      console.log(err.message);
-    })
-    
-  }
 
 
-}
+
+
+
+

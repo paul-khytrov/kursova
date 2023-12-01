@@ -1,0 +1,78 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "JSONPlaceholder",
+    "description": "Fake Online REST API for Testing and Prototyping",
+    "version": "0.0.1"
+  },
+  "paths": 
+  {
+    "/students": 
+    {
+      "get": 
+      {
+        "description": "Get all students",
+        "responses": {}
+      },
+      "post": 
+      {
+        "description": "Create single student",
+        
+      
+        "requestBody": {
+          "description": "Optional description in *Markdown*",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "The user ID",
+                "required": 
+                  ["userName", "firstName"],
+                "properties": 
+                {
+                  "ID": 
+                  {
+                    "type": "integer"
+                  },
+                  "Name": 
+                  {
+                    "type": "string"
+                  },
+                  "Surname": 
+                  {
+                    "type": "string"
+                  },
+                  "Groups_ID": 
+                  {
+                    "type": "integer"
+                  }
+                }
+              }
+            }
+            
+          }
+        },
+          "responses": {}
+        }
+      },
+      
+      "/students/{id}": {
+        "get": {
+          "description": "Get single student",
+          "parameters": [
+            {
+              "in": "path",
+              "name": "id",
+              "required": true,
+              "schema": {
+                "type": "integer",
+                "description": "The user ID"
+              }
+            }
+          ],
+          "responses": {}
+        }
+      }     
+  }
+}

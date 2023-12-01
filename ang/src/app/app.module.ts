@@ -7,12 +7,14 @@ import { DbTestComponent } from './db-test/db-test.component';
 import { HttpClientModule} from '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CommonModule } from '@angular/common';
+import { LecturerComponent } from './lecturer/lecturer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DbTestComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    LecturerComponent
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,13 @@
 <div class="body">
-    <div class="header-wrapper">
+    <div class="header-wrapper" >
+
         <div class="title-wrapper">
             <img style="width: 30px; height: 30px" src="https://via.placeholder.com/30x30" />
             <div class="title-text">Віртуальне Навчальне Середовище</div>
         </div>
         <div class="user-wrapper">
-            <div class="username-text">Віктор Ротків</div>
-            <img style="width: 70px; height: 70px; border-radius: 3000px" src="https://via.placeholder.com/70x70" />
+            <div class="username-text">{{student || 'No Viktor Rotkiv?'}}</div>
+            <img style="width: 70px; height: 70px; border-radius: 3000px; background-color: aquamarine;" />
             <img style="width: 24px; height: 24px" src="https://via.placeholder.com/24x24" />
         </div>
     </div>
@@ -17,7 +18,7 @@
             <div class="rect-placeholder"></div>
             <!-- *ngStyle.background-image="url(c.cover)" -->
             <!-- <img [src]="c.cover"> -->
-            <p class="course-name">{{ c.Name }}</p>
+            <p class="course-name">{{ c.courses.Name }}</p>
         </div>
     </div>
 </div>
