@@ -29,7 +29,7 @@ export class LandingPageComponent {
   }
   adminPage()
   {
-      alert("admin")
+    this.router.navigate(['admin'])
   }
   lecturerPage()
   {

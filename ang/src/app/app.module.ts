@@ -8,13 +8,17 @@ import { HttpClientModule} from '@angular/common/http';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { CommonModule } from '@angular/common';
 import { LecturerComponent } from './lecturer/lecturer.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DbTestComponent,
     LandingPageComponent,
-    LecturerComponent
+    LecturerComponent,
+    AdminComponent,
+    AdminPageComponent
   ],
   imports: [
     BrowserModule,

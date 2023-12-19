@@ -1,0 +1,44 @@
+.StudentWrapper
+{
+  align-self: stretch; padding: 4px; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex
+}
+.StudentWrapper:hover
+{
+  align-self: stretch; padding: 4px; background: #e4e2e2; justify-content: flex-start; align-items: flex-start; gap: 10px; display: inline-flex
+}
+
+.BlockText
+{
+  text-align: center; color: black; font-size: 24px; font-family: Roboto; font-weight: 300; word-wrap: break-word
+}
+.StudentTitle
+{
+  text-align: center; color: black; font-size: 36px; font-family: Roboto; font-weight: 400; word-wrap: break-word
+}
+.button-text
+{
+  color: #0E0E0E; font-size: 24px; font-family: Roboto; font-weight: 300; word-wrap: break-word
+}
+.button
+{
+  padding-left: 16px; padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px; background: white;
+  border-radius: 64px; border: 1px black solid;
+  justify-content: center;
+  align-items: center; gap: 16px; display: inline-flex
+}
+.button:hover
+{
+  padding-left: 16px; padding-right: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px; background: #e4e2e2;
+  border-radius: 64px; border: 1px black solid;
+  justify-content: center;
+  align-items: center; gap: 16px; display: inline-flex
+}
+
+.DeleteButton
+{
+  width: 48px; height: 48px; background: #FDD19D
+}

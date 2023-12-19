@@ -49,6 +49,32 @@ async function postStudent(ID, Name, Surname, Groups_ID) {
 
   return 0
 }
+async function putStudent(ID, Name, Surname, Groups_ID)
+{
+  const updateUser = await prisma.students.update({
+    where: {
+      ID: ID,
+    },
+    data: {
+      Name: Name,
+      Surname: Surname,
+      Groups_ID: Groups_ID,
+    },
+  })
+}
+
+
+async function deleteStudent(ID)
+{
+  const deleteUser = await prisma.students.delete({
+    where: {
+      ID: ID
+    },
+  })
+}
+
+
+
 
 
 router.options('/', cors())
@@ -89,10 +115,39 @@ router.post('/', async function(req, res, next) {
   console.log("here is data we received ->", data);
   try {
     const data = await req.body
-    const result = await postStudent(data.ID, data.Name, data.Surname, data.Groups_ID);
+    const result = await postStudent(parseInt(data.ID), data.Name, data.Surname, parseInt(data.Groups_ID));
     console.log(await getAllStudents());
 
-    res.json(data);
+    res.json(await getAllStudents());
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+router.put('/:id', async function(req, res, next) {
+  try {
+    const data = await req.body
+    await putStudent(parseInt(req.params.id), data.Name, data.Surname, parseInt(data.Groups_ID))
+    console.log("here --->");
+    
+    res.json(await getAllStudents());
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+router.delete('/:id', async function(req, res, next) {
+  try {
+    
+    await deleteStudent(parseInt(req.params.id))
+    console.log("here --->");
+    res.json(await getAllStudents());
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

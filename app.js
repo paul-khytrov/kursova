@@ -5,6 +5,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors')
 var mysql = require('mysql')
+
+
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');
 
@@ -12,26 +14,6 @@ const { PrismaClient } = require('@prisma/client')
 
 
 const prisma = new PrismaClient()
-
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: 'root',
-//   database: 'kursova'
-// })
-
-  // [
-        //   {
-        //     "in": "body",
-        //     "name": "body",
-        //     "description": "---",
-        //     "required": true,
-        //     "schema": 
-        //     {
-        //       
-        //     }
-        //   }
-        //   ],
 
 var studentsRouter = require('./routes/students');
 var lecturersRouter = require('./routes/lecturers');
